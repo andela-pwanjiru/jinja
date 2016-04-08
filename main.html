@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+    <link rel="stylesheet" href="style.css" />
+    <title>{% block title %}{% endblock %} - My Webpage</title>
+    {% endblock %}
+</head>
+<body>
+    <div id="content">{% block content %}{% endblock %}</div>
+    <div id="footer">
+        {% block footer %}
+        &copy; Copyright 2008 by <a href="http://domain.invalid/">you</a>.
+        {% endblock %}
+    </div>
+</body>
+</html
+
+#delimiters
+{% ... %} for Statements
+{{ ... }} for Expressions to print to the template output
+{# ... #} for Comments not included in the template output
+#  ... ## for Line Statements
+
+Template inheritance- blocks
+named block end tags
+{% block sidebar %}
+    {% block inner_sidebar %}
+        ...
+    {% endblock inner_sidebar %}
+{% endblock sidebar %}
+
+
+MACROS:
+{% macro input(name, value='', type='text', size=20) -%}
+    <input type="{{ type }}" name="{{ name }}" value="{{
+        value|e }}" size="{{ size }}">
+{%- endmacro %}
+pass in
+<p>{{ input('username') }}</p>
+<p>{{ input('password', type='password') }}</p>
+
+--passing a macro into another macro
+{% macro render_dialog(title, class='dialog') -%}
+    <div class="{{ class }}">
+        <h2>{{ title }}</h2>
+        <div class="contents">
+            {{ caller() }}
+        </div>
+    </div>
+{%- endmacro %}
+
+{% call render_dialog('Hello World') %}
+    This is a simple dialog rendered by using a macro and
+    a call block.
+{% endcall %}
+
+
+
+filters:(|)
+{{ name|striptags|title }}
+
+built-in filters:
+default:
+{{ my_variable|default('my_variable is not defined') }}
+join:
+{{ [1, 2, 3]|join }}
+    -> 123
+
+block filters;
+{% filter upper %}
+    This text becomes uppercase
+{% endfilter %}    
+
+Tests:
+
+{% if loop.index is divisibleby 3 %}
+{% if loop.index is divisibleby(3) %}
+
+--list of inbuilt tests:
+{% if foo.expression is equalto 42 %}
+    the foo attribute evaluates to the constant 42
+{% endif %}
+
+Comments:
+{# ... #}
+
+Escaping:
+{{ '{{' }}
+{% raw %}
+    <ul>
+    {% for item in seq %}
+        <li>{{ item }}</li>
+    {% endfor %}
+    </ul>
+{% endraw %}
+
+Control structures:
+for:
+{% for user in users %}
+  <li>{{ user.username|e }}</li>
+{% endfor %}
+
+if :
+{% if users %}
+<ul>
+{% for user in users %}
+    <li>{{ user.username|e }}</li>
+{% endfor %}
+</ul>
+{% endif %}
+
+elif:
+{% if kenny.sick %}
+    Kenny is sick.
+{% elif kenny.dead %}
+    You killed Kenny!  You bastard!!!
+{% else %}
+    Kenny looks okay --- so far
+{% endif %}
+
+
+Assignments:
+{% set navigation = [('index.html', 'Index'), ('about.html', 'About')] %}
+{% set key, value = call_something() %}
+
+block assgn:
+{% set navigation %}
+    <li><a href="/">Index</a>
+    <li><a href="/downloads">Downloads</a>
+{% endset %}
+
+Include:
+{% include 'header.html' %}
+    Body
+{% include 'footer.html' %}
+
+
+
+
+
+
+
