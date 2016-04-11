@@ -4,7 +4,7 @@
       <br>
       <p>My string: {{my_string}}</p>
       <p>Value from the list: {{my_list[3]}}</p>
-      <p>Loop through parentst:</p>
+      <p>Loop through this list:</p>
       <ul>
         {% for n in my_list %}
         <li>{{n}}</li>
@@ -14,9 +14,9 @@
       {% filter upper%}
       <p>this text will be upper</p>
       {%endfilter%}
-      <h3> This is the end of my child template</h3>
-      {% block page %}Home{% endblock %}
+      <h3 style="color:brown;"> This is the end of my child template</h3>
+      {% block page %}Hello its me, {% endblock %}
       {% block footer %}
         {{super()}}
       {% endblock %}
-    {% endblock %}
+  {% endblock %}
