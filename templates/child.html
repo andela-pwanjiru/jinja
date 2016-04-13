@@ -2,6 +2,7 @@
   {% block content %}
    <h3 style="color:brown;"> This is the start of my child template</h3>
       <br>
+
       <p>My string: {{my_string}}</p>
       <p>Value from the list: {{my_list[3]}}</p>
       <p>Loop through this list:</p>
@@ -14,6 +15,8 @@
       {% filter upper%}
       <p>this text will be upper</p>
       {%endfilter%}
+      {% set test = "penny" %}
+      <p>{{ test }}</p>
       <h3 style="color:brown;"> This is the end of my child template</h3>
       {% block page %}Hello its me, {% endblock %}
       {% block footer %}
